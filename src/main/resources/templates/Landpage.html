@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <style>
+        body {
+            background: linear-gradient(to right, #ffefba, #ffffff);
+            color: #4b3832;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #f8bbd0; /* Light Pink */
+        }
+
+        .navbar:hover {
+            background-color: #f06292; /* Pink */
+        }
+
+        .navbar-brand img {
+            max-height: 40px;
+        }
+
+        .navbar-nav {
+            margin: 0 auto;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #fffaf0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #4b3832;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #b5651d;
+            margin-top: 20px;
+        }
+
+        .centered-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #f8bbd0; /* Light Pink */
+            color: #fffaf0;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+    <title>RoseRadiance</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/LOGO.png}" src="../static/images/LOGO.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">HOME</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/shop}">SHOP</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/login}">LOGIN</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" onclick="logout()">LEAVE</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/cart}">CART</a>
+                </li>
+                <li class="nav-item active">
+                    <span class="nav-link" th:text="${cartCount}" >0</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 centered-content">
+            <h1><b>Welcome To RoseRadiance</b></h1><br>
+            <p>This is the Answer, where beauty meets elegance. Discover our curated collection of skincare products designed to enhance your natural glow.</p>
+            <p>Whether you're looking for hydration, anti-aging solutions, or a radiant complexion, we have the perfect products for you.</p>
+            <p>Join our community of satisfied customers who trust RoseRadiance for their skincare needs. Shop now and enjoy the confidence that comes with healthy, beautiful skin.</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; <span id="currentYear"></span> ISHIMWE Adeline | ID: 24632</p>
+</div>
+<script>
+    function logout() {
+        window.location.href = '/login';
+    }
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

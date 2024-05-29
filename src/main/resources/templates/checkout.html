@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <title>Checkout</title>
+    <style>
+        body {
+            background-color: #f3e5f5; /* Light purple background */
+        }
+        .navbar {
+            margin-bottom: 20px;
+            background-color: #6a1b9a; /* Dark purple */
+        }
+        .navbar-brand {
+            color: #ffffff; /* White text */
+        }
+        .navbar-brand:hover {
+            color: #d1c4e9; /* Light purple text */
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff; /* White text */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #d1c4e9; /* Light purple text */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .form-group label {
+            font-weight: bold;
+            color: #4a148c; /* Dark purple text */
+        }
+        .card {
+            margin-bottom: 20px;
+            border: 1px solid #ce93d8; /* Light purple border */
+        }
+        .btn-primary {
+            background-color: #8e24aa; /* Medium purple */
+            border-color: #8e24aa; /* Medium purple border */
+        }
+        .btn-primary:hover {
+            background-color: #6a1b9a; /* Dark purple */
+            border-color: #4a148c; /* Darker purple */
+        }
+        .list-group-item {
+            border: none;
+            background-color: #f3e5f5; /* Light purple background */
+        }
+        .list-group-item .text-primary {
+            color: #4a148c; /* Dark purple text */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/LOGO.png}" src="../static/images/LOGO.png" height="40" alt="Logo"/>
+            <span>MyStore</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/shop}" href="#">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}" href="#">Login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cart}" href="#">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link" th:text="${cartCount}">0</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <section class="mt-5 mb-4">
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card wish-list pb-1">
+                    <div class="card-body">
+                        <h5 class="mb-2" style="color: #4a148c;">Billing details</h5>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="firstName">First name</label>
+                                    <input type="text" id="firstName" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="lastName">Last name</label>
+                                    <input type="text" id="lastName" required class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form18">Phone Number</label>
+                            <input type="tel" pattern="[0-9]{10}" required id="form18" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-3" style="color: #4a148c;">The Total Amount</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                Amount Payable
+                                <span>$<span th:text="${total}"></span></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                Shipping By
+                                <span>RoseRadiance</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                <div>
+                                    <strong>The Total Amount of</strong>
+                                </div>
+                                <span><strong>$<span th:text="${total}"></span></strong></span>
+                            </li>
+                        </ul>
+                        <form action="/payNow" method="post">
+                            <button type="submit" class="btn btn-primary btn-block">Pay Now</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script>
+    function logout() {
+        window.location.href = '/login';
+    }
+</script>
+</body>
+</html>

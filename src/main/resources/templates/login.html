@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background: linear-gradient(to right, #ece9e6, #ffffff); /* Light gradient background */
+            padding-top: 70px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .navbar {
+            background-color: #6a1b9a; /* Dark purple */
+            border-bottom: 2px solid #4a148c; /* Darker purple */
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #d1c4e9; /* Light purple */
+        }
+
+        .navbar-nav {
+            margin: 0 auto; /* Center the navbar items */
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        h1 {
+            color: #6a1b9a; /* Dark purple */
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #4a148c; /* Darker purple */
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .form-group input:focus + label,
+        .form-group input.has-content + label {
+            top: 0;
+            left: 10px;
+            font-size: 0.75rem;
+            color: #6a1b9a; /* Dark purple */
+        }
+
+        .form-control {
+            border-radius: 5px;
+            padding-top: 1.25rem;
+            padding-bottom: 0.25rem;
+            border: 1px solid #ccc;
+        }
+
+        .form-control:focus {
+            border-color: #6a1b9a; /* Purple border on focus */
+            box-shadow: none;
+        }
+
+        .form-control::placeholder {
+            color: transparent;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label {
+            top: 0;
+            left: 10px;
+            font-size: 0.75rem;
+            color: #6a1b9a; /* Dark purple */
+        }
+
+        .form-check-label {
+            font-weight: 600;
+            color: #4a148c; /* Darker purple */
+            margin-left: 1.25rem;
+        }
+
+        .form-check-input {
+            margin-top: 0.3rem;
+        }
+
+        .btn-primary {
+            background-color: #6a1b9a; /* Dark purple */
+            border-color: #6a1b9a;
+            font-weight: 600;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #4a148c; /* Darker purple */
+            border-color: #4a148c;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .alert-danger {
+            background-color: #ff4f4f;
+            color: #ffffff;
+        }
+
+        .alert-info {
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #0056b3;
+        }
+
+        a {
+            color: #6a1b9a; /* Dark purple */
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #4a148c; /* Darker purple */
+        }
+
+        .error-label {
+            color: #ff4f4f; /* Red color for error */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img th:src="@{/images/LOGO.png}" src="../static/images/LOGO.png" width="auto" height="40" class="d-inline-block align-top" alt=""/>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}" href="#">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/register}" href="#">Register</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1>Login</h1>
+            <form th:action="@{/login}" th:object="${userLoginDTO}" method="post">
+                <div class="form-group">
+                    <input type="email" class="form-control form-control-lg" th:field="*{email}" placeholder=" " required>
+                    <label th:attr="for='email'">Email address</label>
+                    <div class="error-label" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" th:field="*{password}" placeholder=" " required>
+                    <label th:attr="for='password'">Password</label>
+                    <div class="error-label" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+                </div>
+                <!-- Admin checkbox -->
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="admin" th:field="*{admin}">
+                    <label class="form-check-label" for="admin">Admin</label>
+                </div>
+
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Log In">
+                </div>
+            </form>
+            <div class="form-group text-center">
+                <span>Do not have an account? <a th:href="@{/register}">Register here</a></span>
+            </div>
+            <div class="error-label" th:if="${error} != null" th:text="${error}"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9e+B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7f8j3aF9p+FaPf4e1Zx" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputs = document.querySelectorAll('.form-control');
+
+        inputs.forEach(input => {
+            if (input.value.trim() !== '') {
+                input.classList.add('has-content');
+            }
+
+            input.addEventListener('focus', function () {
+                this.classList.add('has-content');
+            });
+
+            input.addEventListener('blur', function () {
+                if (this.value.trim() === '') {
+                    this.classList.remove('has-content');
+                }
+            });
+        });
+    });
+
+    function validateForm(event) {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        let valid = true;
+
+        if (emailInput.value.trim() === '') {
+            emailInput.classList.add('error-input');
+            emailInput.nextElementSibling.classList.add('error-label');
+            valid = false;
+        } else {
+            emailInput.classList.remove('error-input');
+            emailInput.nextElementSibling.classList.remove('error-label');
+        }
+
+        if (passwordInput.value.trim() === '') {
+            passwordInput.classList.add('error-input');
+            passwordInput.nextElementSibling.classList.add('error-label');
+            valid = false;
+        } else {
+            passwordInput.classList.remove('error-input');
+            passwordInput.nextElementSibling.classList.remove('error-label');
+        }
+
+        if (!valid) {
+            event.preventDefault();
+        }
+    }
+</script>
+
+</body>
+</html>
