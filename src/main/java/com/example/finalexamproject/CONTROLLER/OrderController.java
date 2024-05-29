@@ -33,13 +33,9 @@ public class OrderController {
 
         User user = usersService.findUserByEmail(principal.getName());
 
-        if (user == null || !user.getRoles().contains("ROLE_USER")) {
-            model.addAttribute("error", "You do not have permission to create orders.");
-            return "error-page";
-        }
+        model.addAttribute("error", "You do not have permission to create orders.");
+        return "error-page";
 
-        model.addAttribute("orderDTO", new OrderDTO());
-        return "order-form";
     }
 
 
@@ -48,39 +44,18 @@ public class OrderController {
     public String createOrder(@Valid OrderDTO orderDTO, BindingResult bindingResult, Model model, Principal principal) {
         User user = usersService.findUserByEmail(principal.getName());
 
-        if (user == null || !user.getRoles().contains("ROLE_USER")) {
-            model.addAttribute("error", "You do not have permission to create orders.");
-            return "error-page";
-        }
+        model.addAttribute("error", "You do not have permission to create orders.");
+        return "error-page";
 
-        if (bindingResult.hasErrors()) {
-            return "order-form";
-        }
-
-        orderDTO.setUserId(user.getId().longValue());
-        Order order = orderService.createOrder(orderDTO);
-        model.addAttribute("order", order);
-        return "order-success";
     }
 
     @GetMapping("/history")
     public String viewOrderHistory(Principal principal, Model model) {
         User user = usersService.findUserByEmail(principal.getName());
 
-        if (user == null || (!user.getRoles().contains("ROLE_USER") && !user.getRoles().contains("ROLE_ADMIN"))) {
-            model.addAttribute("error", "You do not have permission to view order history.");
-            return "error-page";
-        }
+        model.addAttribute("error", "You do not have permission to view order history.");
+        return "error-page";
 
-        List<Order> orders;
-        if (user.getRoles().contains("ROLE_ADMIN")) {
-            orders = orderService.findAllOrders();
-        } else {
-            orders = orderService.findOrdersByUserEmail(user.getEmail());
-        }
-
-        model.addAttribute("orders", orders);
-        return user.getRoles().contains("ROLE_ADMIN") ? "order-history-admin" : "order-history";
     }
 
     @GetMapping("/all")
@@ -92,14 +67,9 @@ public class OrderController {
 
         User user = usersService.findUserByEmail(principal.getName());
 
-        if (user == null || !user.getRoles().contains("ROLE_ADMIN")) {
-            model.addAttribute("error", "You do not have permission to view all orders.");
-            return "error-page";
-        }
+        model.addAttribute("error", "You do not have permission to view all orders.");
+        return "error-page";
 
-        List<Order> orders = orderService.findAllOrders();
-        model.addAttribute("orders", orders);
-        return "order-history-admin";
     }
 
 }
