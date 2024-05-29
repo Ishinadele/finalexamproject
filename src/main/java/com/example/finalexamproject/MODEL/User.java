@@ -33,11 +33,8 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private boolean admin; // Add this field to indicate admin status
+    private boolean admin;
 
-    public Collection<Object> getRoles() {
-        return null;
-    }
 }
 
 
